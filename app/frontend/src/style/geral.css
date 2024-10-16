@@ -1,0 +1,17 @@
+:root {
+    --bs-body-font-family: 'Poppins', sans-serif;
+}
+
+.form-check-input {
+    width: 1.5em; /* Largura do checkbox */
+    height: 1.5em; /* Altura do checkbox */
+    margin-top: 0.3em; /* Ajuste de espaço em cima */
+    border: 2px solid #007bff; /* Cor e espessura da borda */
+    border-radius: 0.25em; /* Bordas arredondadas */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
