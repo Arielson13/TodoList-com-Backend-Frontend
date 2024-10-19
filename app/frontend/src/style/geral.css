@@ -1,17 +1,110 @@
-:root {
-    --bs-body-font-family: 'Poppins', sans-serif;
+/* Definindo cores principais */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f9; /* Um fundo suave e claro */
+    color: #343a40; /* Texto principal em cinza escuro */
 }
 
-.form-check-input {
-    width: 1.5em; /* Largura do checkbox */
-    height: 1.5em; /* Altura do checkbox */
-    margin-top: 0.3em; /* Ajuste de espaço em cima */
-    border: 2px solid #007bff; /* Cor e espessura da borda */
-    border-radius: 0.25em; /* Bordas arredondadas */
+h1, h2 {
+    font-weight: 600;
+    color: #1d3557; /* Azul escuro para títulos */
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.card {
+    background-color: #ffffff; /* Fundo branco para os cards */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px;
+}
+
+button {
+    background-color: #457b9d; /* Azul sofisticado */
+    border: none;
+    color: white;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d3557; /* Azul mais escuro no hover */
+}
+
+input, textarea {
+    border: 1px solid #adb5bd; /* Bordas cinzas claras */
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff; /* Fundo branco para campos */
+}
+
+input:focus, textarea:focus {
+    border-color: #457b9d; /* Azul claro ao focar no campo */
+    outline: none;
+}
+
+#todo-list li {
+    background-color: #ffffff; /* Branco para cada item */
+    color: #343a40; /* Cinza escuro para o texto */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #6c757d; /* Cinza claro para itens concluídos */
+}
+
+.modal-content {
+    border-radius: 10px;
+    background-color: #f8f9fa; /* Fundo claro para o modal */
+}
+
+.modal-header, .modal-footer {
+    background-color: #1d3557; /* Azul escuro para header e footer do modal */
+    color: white;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+#edit-todo-form input {
+    background-color: #f4f7f9; /* Fundo suave nos inputs do modal */
+    border-color: #dee2e6;
+}
+
+#edit-todo-form input:focus {
+    border-color: #457b9d;
+}
+
+/* Estilizando os botões de editar e excluir */
+.edit-btn {
+    background-color: #fca311; /* Botão de editar em laranja suave */
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #e07a00; /* Laranja mais escuro no hover */
+}
+
+.delete-btn {
+    background-color: #e63946; /* Botão de excluir em vermelho suave */
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #d62828; /* Vermelho mais escuro no hover */
+}
+
+#error-message {
+    font-size: 14px;
+    font-weight: 500;
 }
