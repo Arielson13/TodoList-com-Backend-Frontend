@@ -6,6 +6,7 @@ import {
         updateTodo,
         deleteTodo
 } from '../controllers/todoController.js' 
+import { register, login } from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -23,5 +24,11 @@ router.put('/todos/:id', updateTodo);
 
 // Rota para deletar um todo por ID
 router.delete('/todos/:id', deleteTodo);
+
+// Rota de login do usuário
+router.post("/login", login);
+
+// Rota de registrar um novo usuário
+router.post("/register", register);
 
 export default router;
