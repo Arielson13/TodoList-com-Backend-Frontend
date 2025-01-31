@@ -58,13 +58,21 @@
         </div>
     </div>
     <script>
-        // Impede voltar à tela de login
-        if (!sessionStorage.getItem('loggedIn')) {
-            window.location.replace('index.html');
+        // Verifica se o usuário está autenticado
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+            window.location.replace("index.html"); // Redireciona para login se não houver token
         }
 
+        // Impede que o usuário volte para a página de login
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+        };
+
         function logout() {
-            sessionStorage.removeItem('loggedIn'); // Remove sessão ativa
+            sessionStorage.removeItem("token"); // Remove sessão ativa
             window.location.replace('index.html'); // Sai e impede voltar
         }
 

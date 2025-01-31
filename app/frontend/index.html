@@ -22,15 +22,29 @@
     </div>
 
     <script>
-        function login() {
+        async function login() {
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
 
-            if (user === 'admin' && pass === '1234') {
-                sessionStorage.setItem('loggedIn', 'true');
-                window.location.replace('home.html');
-            } else {
-                alert('Credenciais inválidas!');
+            try {
+                const response = await fetch("http://localhost:5000/api/v1/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Credenciais inválidas!");
+                }
+
+                const data = await response.json();
+                sessionStorage.setItem("token", data.token); // Armazena o token
+                window.location.replace("home.html"); // Redireciona para a página principal
+
+            } catch (error) {
+                alert(error.message);
             }
         }
 
