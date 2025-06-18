@@ -11,48 +11,98 @@
 </head>
 <body>
     <div class="login-container text-center">
-        <h2 class="mb-4">Login</h2>
-        <div class="mb-3">
-            <input type="text" id="username" class="form-control" placeholder="Usuário">
-        </div>
-        <div class="mb-3">
-            <input type="password" id="password" class="form-control" placeholder="Senha">
-        </div>
-        <button class="btn btn-primary w-100" onclick="login()">Entrar</button>
+    <h2 id="form-title" class="mb-4">Login</h2>
+    <div class="mb-3">
+        <input type="text" id="username" class="form-control" placeholder="Usuário">
     </div>
+    <div class="mb-3">
+        <input type="password" id="password" class="form-control" placeholder="Senha">
+    </div>
+    <button id="form-button" class="btn btn-primary w-100 mb-2" onclick="handleForm()">Entrar</button>
+    <button class="btn btn-link" onclick="toggleForm()">Ainda não tem conta? Registre-se</button>
+</div>
 
     <script>
-        async function login() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+         let isRegister = false;
 
-            try {
-                const response = await fetch("http://localhost:5000/api/v1/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ username: user, password: pass })
-                });
+    function toggleForm() {
+        isRegister = !isRegister;
+        document.getElementById('form-title').textContent = isRegister ? 'Registrar' : 'Login';
+        document.getElementById('form-button').textContent = isRegister ? 'Registrar' : 'Entrar';
+        document.getElementById('register-name').classList.toggle('d-none');
+        document.querySelector('.btn-link').textContent = isRegister ? 'Já tem uma conta? Entrar' : 'Ainda não tem conta? Registre-se';
+    }
 
-                if (!response.ok) {
-                    throw new Error("Credenciais inválidas!");
-                }
-
-                const data = await response.json();
-                sessionStorage.setItem("token", data.token); // Armazena o token
-                window.location.replace("home.html"); // Redireciona para a página principal
-
-            } catch (error) {
-                alert(error.message);
-            }
+    async function handleForm() {
+        if (isRegister) {
+            await register();
+        } else {
+            await login();
         }
+    }
 
-        document.addEventListener('keydown', (event) => {
-            if(event.key === 'Enter'){
-                login();
+    async function login() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+
+        try {
+            const response = await fetch("http://localhost:5000/api/v1/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username: user, password: pass })
+            });
+
+            if (!response.ok) {
+                throw new Error("Credenciais inválidas!");
             }
-        })
+
+            const data = await response.json();
+            sessionStorage.setItem("token", data.token);
+            window.location.replace("home.html");
+
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    async function register() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+
+        try {
+            const response = await fetch("http://localhost:5000/api/v1/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username: user, password: pass })
+            });
+
+            if (!response.ok) {
+                const msg = await response.text();
+                throw new Error(msg || "Erro ao registrar!");
+            }
+
+            if(response.username === "" || response.password === "") {
+                const msg = await response.text();
+                throw new Error(msg || "Por favor, preencha todos os campos!")
+            }
+
+            alert("Usuário registrado com sucesso! Faça o login.");
+            toggleForm(); // Volta para o formulário de login
+
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if(event.key === 'Enter'){
+            handleForm();
+        }
+    });
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
